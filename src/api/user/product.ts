@@ -1,7 +1,7 @@
 import apiUser from "@/api/common/apiUser";
 import type {
   RankingRequestParams,
-  cardItemData,
+  CardItemData,
   ProductDetailDataDto,
   ProductSummaryResponse,
 } from "@/types/DTO/productDTO";
@@ -9,7 +9,7 @@ import type {
 export async function getRanking({
   targetType,
   rankType,
-}: RankingRequestParams): Promise<cardItemData[]> {
+}: RankingRequestParams): Promise<CardItemData[]> {
   const response = await apiUser.get<ProductDetailDataDto>(
     "/products/ranking",
     {

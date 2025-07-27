@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "@/context/AuthContext";
-import { useAsync } from "@/hooks/useAsync";
 import {
   Wrapper,
   Title,
@@ -12,7 +11,7 @@ import AgeSelectionButton from "@/components/AgeSelectionButton/AgeSelectionButt
 import RankSelectionBar from "@/components/RankSelectionBar/RankSelectionBar";
 import ShowMoreButton from "@/components/ShowMoreButton/ShowMoreButton";
 import CardList from "@/components/CardList/CardList";
-import { getRanking } from "@/api/user/product";
+import { useRanking } from "@/hooks/useRanking";
 import type { CardItemData } from "@/types/DTO/productDTO";
 import { AGE_SELECT } from "@/constants/age";
 import { RANK_SELECT } from "@/constants/tabs";
@@ -43,18 +42,12 @@ const RankingSection = () => {
   const selectedTarget = searchParams.get("targetType") as TargetType;
   const selectedRank = searchParams.get("rankType") as RankType;
 
-  const { data, isLoading, error, execute } = useAsync<CardItemData[]>([]);
+  const { data, isLoading, error } = useRanking({
+    targetType: selectedTarget,
+    rankType: selectedRank,
+  });
 
-  useEffect(() => {
-    execute(() =>
-      getRanking({
-        targetType: selectedTarget,
-        rankType: selectedRank,
-      })
-    );
-  }, [selectedTarget, selectedRank]);
-
-  const cards = data.map((item) => ({
+  const cards = (data || []).map((item: CardItemData) => ({
     id: item.id,
     imageUrl: item.imageURL,
     brand: item.brandInfo.name,
@@ -88,7 +81,14 @@ const RankingSection = () => {
     if (isLoading) {
       return <LoadingSpinner size={48} />;
     }
-    if (error || cards.length === 0) {
+    if (error) {
+      return (
+        <p style={{ textAlign: "center", padding: "24px" }}>
+          데이터를 불러오는 중 오류가 발생했습니다.
+        </p>
+      );
+    }
+    if (cards.length === 0) {
       return (
         <p style={{ textAlign: "center", padding: "24px" }}>상품이 없습니다.</p>
       );
