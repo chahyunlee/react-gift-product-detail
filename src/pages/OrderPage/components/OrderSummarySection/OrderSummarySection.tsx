@@ -1,11 +1,8 @@
-import { AxiosError } from "axios";
 import { useFormContext } from "react-hook-form";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import type { FormValues } from "@/pages/OrderPage/OrderPage";
-import { getProductSummary } from "@/api/user/product";
-import type { ProductSummaryDto } from "@/types/DTO/productDTO";
+import { useProductSummary } from "@/hooks/useProductSummary";
 import {
   ProductInfoSection,
   SectionTitle,
@@ -26,29 +23,20 @@ interface Props {
 const OrderSummarySection = ({ productId }: Props) => {
   const navigate = useNavigate();
   const { watch } = useFormContext<FormValues>();
-  const [product, setProduct] = useState<ProductSummaryDto | null>(null);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const res = await getProductSummary(productId);
-        setProduct(res.data);
-      } catch (err) {
-        const error = err as AxiosError;
-        const status = error?.response?.status;
+  const { data, isLoading, error } = useProductSummary(productId);
+  const product = data?.data;
 
-        if (status && status >= 400 && status < 500) {
-          toast.error("상품 정보를 불러올 수 없습니다. 다시 시도해주세요.");
-          navigate("/home");
-        } else {
-          toast.error(
-            "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요."
-          );
-        }
-      }
-    };
-    fetchProduct();
-  }, [productId, navigate]);
+  if (error) {
+    const status = (error as any)?.response?.status;
+
+    if (status && status >= 400 && status < 500) {
+      toast.error("상품 정보를 불러올 수 없습니다. 다시 시도해주세요.");
+      navigate("/home");
+    } else {
+      toast.error("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    }
+  }
 
   const getters = watch("getters") || [];
   const totalQuantity = getters.reduce(
@@ -62,7 +50,11 @@ const OrderSummarySection = ({ productId }: Props) => {
       <SectionDivider />
       <ProductInfoSection>
         <SectionTitle>상품 정보</SectionTitle>
-        {product && (
+        {isLoading ? (
+          <p style={{ textAlign: "center", padding: "24px" }}>
+            상품 정보를 불러오는 중...
+          </p>
+        ) : product ? (
           <ProductCard>
             <ProductImage src={product.imageURL} />
             <ProductInfo>
@@ -73,6 +65,10 @@ const OrderSummarySection = ({ productId }: Props) => {
               </ProductPrice>
             </ProductInfo>
           </ProductCard>
+        ) : (
+          <p style={{ textAlign: "center", padding: "24px" }}>
+            상품 정보를 불러올 수 없습니다.
+          </p>
         )}
       </ProductInfoSection>
       <FixedOrderButton type="submit">{totalPrice}원 주문하기</FixedOrderButton>
