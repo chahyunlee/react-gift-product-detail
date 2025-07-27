@@ -1,5 +1,4 @@
 import apiUser from "@/api/common/apiUser";
-<<<<<<< HEAD
 import {
   type RankingRequestParams,
   type CardItemData,
@@ -9,13 +8,6 @@ import {
   type ProductDetailResponse,
   type ProductReview,
   type ProductReviewResponse,
-=======
-import type {
-  RankingRequestParams,
-  CardItemData,
-  ProductDetailDataDto,
-  ProductSummaryResponse,
->>>>>>> e4ed04b (feat: 상품 랭킹 섹션 useRanking 훅 구현 및 API 연동)
 } from "@/types/DTO/productDTO";
 
 export async function getRanking({
