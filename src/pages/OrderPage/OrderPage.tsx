@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
-import { createOrder } from "@/api/user/order";
+import { useCreateOrder } from "@/hooks/useCreateOrder";
 import { OrderCardData } from "@/mockdata/ordercardData";
 import CardSelectionSection from "@/pages/OrderPage/components/CardSelectionSection/CardSelectionSection";
 import SenderInfoSection from "@/pages/OrderPage/components/SenderInfoSection/SenderInfoSection";
@@ -40,6 +40,7 @@ const OrderPage = () => {
   });
 
   const { handleSubmit } = methods;
+  const createOrderMutation = useCreateOrder();
 
   const createOrderDto = (data: FormValues) => ({
     productId,
@@ -57,7 +58,7 @@ const OrderPage = () => {
     const orderDto = createOrderDto(data);
 
     try {
-      await createOrder(orderDto);
+      await createOrderMutation.mutateAsync(orderDto);
       window.alert(
         `주문이 완료되었습니다.\n` +
           `구매 수량: ${data.quantity}\n` +
@@ -97,7 +98,10 @@ const OrderPage = () => {
           <CardSelectionSection />
           <SenderInfoSection />
           <GroupGettersInfoSection />
-          <OrderSummarySection productId={productId} />
+          <OrderSummarySection 
+            productId={productId} 
+            isSubmitting={createOrderMutation.isPending}
+          />
         </form>
       </FormProvider>
     </>

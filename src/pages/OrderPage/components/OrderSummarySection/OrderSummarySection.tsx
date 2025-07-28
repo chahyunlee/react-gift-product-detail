@@ -18,9 +18,10 @@ import {
 
 interface Props {
   productId: number;
+  isSubmitting?: boolean;
 }
 
-const OrderSummarySection = ({ productId }: Props) => {
+const OrderSummarySection = ({ productId, isSubmitting = false }: Props) => {
   const navigate = useNavigate();
   const { watch } = useFormContext<FormValues>();
 
@@ -71,7 +72,9 @@ const OrderSummarySection = ({ productId }: Props) => {
           </p>
         )}
       </ProductInfoSection>
-      <FixedOrderButton type="submit">{totalPrice}원 주문하기</FixedOrderButton>
+      <FixedOrderButton type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "주문 처리 중..." : `${totalPrice}원 주문하기`}
+      </FixedOrderButton>
     </>
   );
 };
