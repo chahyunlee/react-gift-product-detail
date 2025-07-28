@@ -1,14 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { getThemeInfo, getThemeProducts } from "@/api/user/theme";
-import type { ThemeInfoResponseDTO } from "@/types/DTO/themeDTO";
+import { getThemeProducts } from "@/api/user/theme";
 import type { CardItem } from "@/types/DTO/productDTO";
 import { RouterPath } from "@/routes/path";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import { useGetThemeInfo } from "@/hooks/useGetThemeInfo";
 
 export function useThemeProducts(themeId: number | undefined) {
   const navigate = useNavigate();
-  const [theme, setTheme] = useState<ThemeInfoResponseDTO | null>(null);
   const [products, setProducts] = useState<CardItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMoreList, setHasMoreList] = useState(true);
@@ -16,20 +15,13 @@ export function useThemeProducts(themeId: number | undefined) {
   const observerRef = useRef<HTMLDivElement | null>(null);
   const scrollPositionRef = useRef<number>(0);
 
-  const loadThemeInfo = useCallback(async () => {
-    if (!themeId) return;
-    setLoading(true);
-    try {
-      const themeData = await getThemeInfo(themeId);
-      setTheme(themeData);
-    } catch (err: any) {
-      if (err?.response?.status === 404) {
-        navigate(RouterPath.HOME, { replace: true });
-      }
-    } finally {
-      setLoading(false);
+  const { data: theme, error: themeError } = useGetThemeInfo(themeId || 0);
+
+  useEffect(() => {
+    if (themeError && (themeError as any)?.response?.status === 404) {
+      navigate(RouterPath.HOME, { replace: true });
     }
-  }, [themeId]);
+  }, [themeError, navigate]);
 
   const loadProducts = useCallback(async () => {
     if (!themeId || !hasMoreList) return;
@@ -61,10 +53,6 @@ export function useThemeProducts(themeId: number | undefined) {
       }
     }
   }, [themeId, page, hasMoreList]);
-
-  useEffect(() => {
-    loadThemeInfo();
-  }, [loadThemeInfo]);
 
   useEffect(() => {
     loadProducts();
