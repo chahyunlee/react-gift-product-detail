@@ -8,4 +8,7 @@ export const RouterPath = {
   ORDER: {
     DETAIL: "/order/:id",
   },
+  PRODUCT: {
+    DETAIL: "/product/:id",
+  },
 };

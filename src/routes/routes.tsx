@@ -6,6 +6,7 @@ import NotFoundPage from "@/pages/NotFoundPage/NotFoundPage";
 import MyPage from "@/pages/MyPage/MyPage";
 import ThemePage from "@/pages/ThemePage/ThemePage";
 import OrderPage from "@/pages/OrderPage/OrderPage";
+import DetailPage from "@/pages/DetailPage/Detailpage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
   {
     path: RouterPath.ORDER.DETAIL,
     element: <OrderPage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: RouterPath.PRODUCT.DETAIL,
+    element: <DetailPage />,
     errorElement: <NotFoundPage />,
   },
 ]);
