@@ -63,7 +63,7 @@ const LoginPage = () => {
           {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
           <LoginButton
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || auth?.isLoggingIn}
             isValid={isValid}
             onClick={handleLoginClick}
           >
