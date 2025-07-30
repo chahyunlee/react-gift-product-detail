@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
 import { AuthContext } from "@/context/AuthContext";
 import logo from "@/assets/images/logo.png";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
@@ -40,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <>
+    <ErrorBoundary>
       <NavigationBar />
       <Wrapper>
         <Form>
@@ -71,7 +72,7 @@ const LoginPage = () => {
           </LoginButton>
         </Form>
       </Wrapper>
-    </>
+    </ErrorBoundary>
   );
 };
 

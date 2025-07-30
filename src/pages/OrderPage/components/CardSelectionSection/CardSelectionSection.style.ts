@@ -43,13 +43,13 @@ export const MainImage = styled.img`
 `;
 
 export const MessageInput = styled.textarea`
-  width: 640px;
+  width: 100%;
   min-width: 480px;
   min-height: 48px;
   border: 1.5px solid ${({ theme }) => theme.colors.gray400};
   border-radius: 12px;
   padding: 14px 16px;
-  margin: ${({ theme }) => theme.spacing.spacing4};
+  margin: ${({ theme }) => theme.spacing.spacing5};
   font-size: ${({ theme }) => theme.typography.body1Regular.fontSize};
   box-sizing: border-box;
   outline: none;

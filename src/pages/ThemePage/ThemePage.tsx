@@ -24,9 +24,9 @@ const ThemePage = () => {
 
   const handleCardClick = (cardId: number) => {
     if (!user) {
-      navigate("/login", { state: { from: `/order/${cardId}` } });
+      navigate("/login", { state: { from: `/product/${cardId}` } });
     } else {
-      navigate(`/order/${cardId}`);
+      navigate(`/product/${cardId}`);
     }
   };
 
