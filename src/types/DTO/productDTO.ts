@@ -48,7 +48,7 @@ export interface ProductSummaryResponse {
 
 export interface ProductDetail {
   description: string;
-  announcement: AnnouncementItem[];
+  announcements: AnnouncementItem[];
 }
 
 export interface AnnouncementItem {

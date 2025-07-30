@@ -79,7 +79,7 @@ const DetailPage = () => {
                   key={review.id}
                   style={{
                     padding: "12px",
-                    marginBottom: isLast ? "24px" : "8px", // 마지막만 24px 간격
+                    marginBottom: isLast ? "24px" : "8px",
                   }}
                 >
                   <strong
@@ -101,7 +101,48 @@ const DetailPage = () => {
         );
 
       case "info":
-        return "3";
+        if (
+          !detailInfo ||
+          !detailInfo.announcements ||
+          detailInfo.announcements.length === 0
+        )
+          return <div>상세정보가 없습니다.</div>;
+
+        return (
+          <div style={{ padding: "16px", lineHeight: "1.6" }}>
+            {detailInfo.announcements
+              .sort((a, b) => a.displayOrder - b.displayOrder)
+              .map(({ name, value }) => (
+                <div
+                  key={name}
+                  style={{
+                    marginBottom: "16px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "16px",
+                      color: "#333",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    {name}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      color: "#666",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    {value}
+                  </div>
+                </div>
+              ))}
+          </div>
+        );
+
       default:
         return "";
     }
