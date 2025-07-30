@@ -71,9 +71,9 @@ const RankingSection = () => {
 
   const handleCardClick = (cardId: number) => {
     if (!auth?.user) {
-      navigate("/login", { state: { from: `/order/${cardId}` } });
+      navigate("/login", { state: { from: `/product/${cardId}` } });
     } else {
-      navigate(`/order/${cardId}`);
+      navigate(`/product/${cardId}`);
     }
   };
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import { useGetProductInfo } from "@/hooks/useGetProductInfo";
 import { useGetProductDetailInfo } from "@/hooks/useGetProductDetailInfo";
 import { useGetProductReviewInfo } from "@/hooks/useGetProductReviewInfo";
@@ -19,6 +20,8 @@ import {
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
+  const navigate = useNavigate();
+  const auth = useAuth();
 
   const [activeTab, setActiveTab] = useState<"description" | "review" | "info">(
     "description"
@@ -57,6 +60,14 @@ const DetailPage = () => {
     }
   };
 
+  const handleOrderClick = () => {
+    if (!auth?.user) {
+      navigate("/login", { state: { from: `/order/${productId}` } });
+    } else {
+      navigate(`/order/${productId}`);
+    }
+  };
+
   return (
     <>
       <NavigationBar />
@@ -82,7 +93,7 @@ const DetailPage = () => {
           likeCount={likeCount}
           onToggle={handleLikeToggle}
         />
-        <OrderButton>주문하기</OrderButton>
+        <OrderButton onClick={handleOrderClick}>주문하기</OrderButton>
       </BottomBar>
     </>
   );

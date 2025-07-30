@@ -8,6 +8,7 @@ import {
   Brand,
 } from "@/pages/DetailPage/components/ProductInfoSection/ProductInfoSection.style";
 import { SectionDivider } from "@/pages/DetailPage/DetailPage.style";
+
 interface ProductInfoProps {
   item: any;
   detailInfo?: any;
