@@ -1,9 +1,10 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductInfo } from "@/hooks/useGetProductInfo";
 import { useGetProductDetailInfo } from "@/hooks/useGetProductDetailInfo";
 import { useGetProductReviewInfo } from "@/hooks/useGetProductReviewInfo";
+import { useGetProductWishInfo } from "@/hooks/useGetProductWishInfo";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import {
   Wrapper,
@@ -29,8 +30,6 @@ const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
 
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(11341);
   const [activeTab, setActiveTab] = useState<"description" | "review" | "info">(
     "description"
   );
@@ -42,6 +41,18 @@ const DetailPage = () => {
     isLoading: isReviewLoading,
     isError: isReviewError,
   } = useGetProductReviewInfo(productId);
+
+  const { data: wishInfo } = useGetProductWishInfo(productId);
+
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+
+  useEffect(() => {
+    if (wishInfo) {
+      setLiked(wishInfo.isWished);
+      setLikeCount(wishInfo.wishCount);
+    }
+  }, [wishInfo]);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !item) return <div>상품 정보를 불러오지 못했습니다.</div>;

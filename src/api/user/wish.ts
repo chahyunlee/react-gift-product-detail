@@ -4,7 +4,9 @@ import type {
   ProductWishInfoResponse,
 } from "@/types/DTO/productDTO";
 
-export async function getWishInfo(productId: number): Promise<ProductWishInfo> {
+export async function getProductWishInfo(
+  productId: number
+): Promise<ProductWishInfo> {
   const response = await apiUser.get<ProductWishInfoResponse>(
     `products/${productId}/wish`
   );
