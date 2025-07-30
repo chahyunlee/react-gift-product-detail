@@ -22,6 +22,7 @@ import {
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
+
   const navigate = useNavigate();
   const auth = useAuth();
 
