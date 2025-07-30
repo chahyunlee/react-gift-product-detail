@@ -7,6 +7,7 @@ export const SectionWrapper = styled.div`
 export const SectionTitle = styled.h3`
   font-size: ${({ theme }) => theme.typography.title1Bold.fontSize};
   font-weight: ${({ theme }) => theme.typography.title2Bold.fontWeight};
+  margin-bottom: ${({ theme }) => theme.spacing.spacing3};
 `;
 
 export const InputRow = styled.div`

@@ -2,6 +2,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
+import SuspenseWrapper from "@/components/SuspenseWrapper/SuspenseWrapper";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import { useCreateOrder } from "@/hooks/useCreateOrder";
 import { OrderCardData } from "@/mockdata/ordercardData";
@@ -91,20 +93,22 @@ const OrderPage = () => {
   };
 
   return (
-    <>
+    <ErrorBoundary>
       <NavigationBar />
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleOrderSubmission)}>
           <CardSelectionSection />
           <SenderInfoSection />
           <GroupGettersInfoSection />
-          <OrderSummarySection 
-            productId={productId} 
-            isSubmitting={createOrderMutation.isPending}
-          />
+          <SuspenseWrapper>
+            <OrderSummarySection
+              productId={productId}
+              isSubmitting={createOrderMutation.isPending}
+            />
+          </SuspenseWrapper>
         </form>
       </FormProvider>
-    </>
+    </ErrorBoundary>
   );
 };
 

@@ -15,6 +15,7 @@ export const Title = styled.h1`
   `}
   align-self: flex-start;
   margin-left: ${({ theme }) => theme.spacing.spacing5};
+  margin-bottom: ${({ theme }) => theme.spacing.spacing5};
 `;
 export const Grid = styled.div`
   display: grid;

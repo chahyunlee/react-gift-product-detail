@@ -36,7 +36,7 @@ export const ThemeTitle = styled.h1`
   color: ${({ theme }) => theme.colors.gray00};
   font-weight: ${({ theme }) => theme.typography.title1Bold.fontWeight};
   margin: ${({ theme }) => theme.spacing.spacing3}
-    ${({ theme }) => theme.spacing.spacing2} 0;
+    ${({ theme }) => theme.spacing.spacing2};
 `;
 
 export const ThemeDescription = styled.p`
