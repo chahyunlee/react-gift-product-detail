@@ -1,7 +1,9 @@
-<<<<<<< HEAD
-import type { ProductDetail, ProductReview, ProductReviewItem, AnnouncementItem } from "@/types/DTO/productDTO";
-=======
->>>>>>> 6d2bb8b (refactor: 상품 상세 페이지 section 분리)
+import type {
+  ProductDetail,
+  ProductReview,
+  ProductReviewItem,
+  AnnouncementItem,
+} from "@/types/DTO/productDTO";
 import {
   TabWrapper,
   TabButton,
@@ -14,13 +16,8 @@ interface ProductTabsProps {
   setActiveTab: React.Dispatch<
     React.SetStateAction<"description" | "review" | "info">
   >;
-<<<<<<< HEAD
   detailInfo?: ProductDetail;
   reviewData?: ProductReview;
-=======
-  detailInfo?: any;
-  reviewData?: any;
->>>>>>> 6d2bb8b (refactor: 상품 상세 페이지 section 분리)
   isReviewLoading?: boolean;
   isReviewError?: boolean;
 }
@@ -49,35 +46,33 @@ const ProductTabs = ({
 
         return (
           <ul style={{ listStyle: "none", padding: 0 }}>
-<<<<<<< HEAD
-            {reviewData.reviews.map((review: ProductReviewItem, idx: number) => {
-=======
-            {reviewData.reviews.map((review: any, idx: number) => {
->>>>>>> 6d2bb8b (refactor: 상품 상세 페이지 section 분리)
-              const isLast = idx === reviewData.reviews.length - 1;
-              return (
-                <li
-                  key={review.id}
-                  style={{
-                    padding: "12px",
-                    marginBottom: isLast ? "24px" : "8px",
-                  }}
-                >
-                  <strong
+            {reviewData.reviews.map(
+              (review: ProductReviewItem, idx: number) => {
+                const isLast = idx === reviewData.reviews.length - 1;
+                return (
+                  <li
+                    key={review.id}
                     style={{
-                      fontWeight: "bold",
-                      display: "block",
-                      marginBottom: "6px",
+                      padding: "12px",
+                      marginBottom: isLast ? "24px" : "8px",
                     }}
                   >
-                    {review.authorName}
-                  </strong>
-                  <p style={{ whiteSpace: "pre-wrap", margin: 0 }}>
-                    {review.content}
-                  </p>
-                </li>
-              );
-            })}
+                    <strong
+                      style={{
+                        fontWeight: "bold",
+                        display: "block",
+                        marginBottom: "6px",
+                      }}
+                    >
+                      {review.authorName}
+                    </strong>
+                    <p style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                      {review.content}
+                    </p>
+                  </li>
+                );
+              }
+            )}
           </ul>
         );
 
@@ -92,13 +87,11 @@ const ProductTabs = ({
         return (
           <div style={{ padding: "16px", lineHeight: "1.6" }}>
             {detailInfo.announcements
-<<<<<<< HEAD
-              .sort((a: AnnouncementItem, b: AnnouncementItem) => a.displayOrder - b.displayOrder)
+              .sort(
+                (a: AnnouncementItem, b: AnnouncementItem) =>
+                  a.displayOrder - b.displayOrder
+              )
               .map(({ name, value }: AnnouncementItem) => (
-=======
-              .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
-              .map(({ name, value }: any) => (
->>>>>>> 6d2bb8b (refactor: 상품 상세 페이지 section 분리)
                 <div key={name} style={{ marginBottom: "16px" }}>
                   <div
                     style={{
