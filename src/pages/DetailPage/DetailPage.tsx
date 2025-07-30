@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
+import SuspenseWrapper from "@/components/SuspenseWrapper/SuspenseWrapper";
 import { useAuth } from "@/hooks/useAuth";
 import { useGetProductInfo } from "@/hooks/useGetProductInfo";
 import { useGetProductDetailInfo } from "@/hooks/useGetProductDetailInfo";
@@ -69,7 +71,7 @@ const DetailPage = () => {
   };
 
   return (
-    <>
+    <ErrorBoundary>
       <NavigationBar />
       <Wrapper>
         <Container>
@@ -77,14 +79,16 @@ const DetailPage = () => {
         </Container>
         <SectionDivider />
         <Container>
-          <ProductTabSection
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            detailInfo={detailInfo}
-            reviewData={reviewData}
-            isReviewLoading={isReviewLoading}
-            isReviewError={isReviewError}
-          />
+          <SuspenseWrapper>
+            <ProductTabSection
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              detailInfo={detailInfo}
+              reviewData={reviewData}
+              isReviewLoading={isReviewLoading}
+              isReviewError={isReviewError}
+            />
+          </SuspenseWrapper>
         </Container>
       </Wrapper>
       <BottomBar>
@@ -95,7 +99,7 @@ const DetailPage = () => {
         />
         <OrderButton onClick={handleOrderClick}>주문하기</OrderButton>
       </BottomBar>
-    </>
+    </ErrorBoundary>
   );
 };
 
