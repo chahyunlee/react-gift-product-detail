@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import type { CardItem, CardItemData } from "@/types/DTO/productDTO";
+import type { ApiError } from "@/types/error";
 import { RouterPath } from "@/routes/path";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useGetThemeInfo } from "@/hooks/useGetThemeInfo";
@@ -23,11 +24,20 @@ export function useThemeProducts(themeId: number | undefined) {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useGetThemeProducts(themeId || 0) as any;
+  } = useGetThemeProducts(themeId || 0) as {
+    data: { pages: ThemeProductsResponse[] } | undefined;
+    isLoading: boolean;
+    hasNextPage: boolean | undefined;
+    fetchNextPage: () => void;
+    isFetchingNextPage: boolean;
+  };
 
   useEffect(() => {
-    if (themeError && (themeError as any)?.response?.status === 404) {
-      navigate(RouterPath.HOME, { replace: true });
+    if (themeError) {
+      const apiError = themeError as ApiError;
+      if (apiError?.response?.status === 404) {
+        navigate(RouterPath.HOME, { replace: true });
+      }
     }
   }, [themeError, navigate]);
 

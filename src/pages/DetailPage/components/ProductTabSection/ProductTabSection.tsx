@@ -1,3 +1,4 @@
+import type { ProductDetail, ProductReview, ProductReviewItem, AnnouncementItem } from "@/types/DTO/productDTO";
 import {
   TabWrapper,
   TabButton,
@@ -10,8 +11,8 @@ interface ProductTabsProps {
   setActiveTab: React.Dispatch<
     React.SetStateAction<"description" | "review" | "info">
   >;
-  detailInfo?: any;
-  reviewData?: any;
+  detailInfo?: ProductDetail;
+  reviewData?: ProductReview;
   isReviewLoading?: boolean;
   isReviewError?: boolean;
 }
@@ -40,7 +41,7 @@ const ProductTabs = ({
 
         return (
           <ul style={{ listStyle: "none", padding: 0 }}>
-            {reviewData.reviews.map((review: any, idx: number) => {
+            {reviewData.reviews.map((review: ProductReviewItem, idx: number) => {
               const isLast = idx === reviewData.reviews.length - 1;
               return (
                 <li
@@ -79,8 +80,8 @@ const ProductTabs = ({
         return (
           <div style={{ padding: "16px", lineHeight: "1.6" }}>
             {detailInfo.announcements
-              .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
-              .map(({ name, value }: any) => (
+              .sort((a: AnnouncementItem, b: AnnouncementItem) => a.displayOrder - b.displayOrder)
+              .map(({ name, value }: AnnouncementItem) => (
                 <div key={name} style={{ marginBottom: "16px" }}>
                   <div
                     style={{

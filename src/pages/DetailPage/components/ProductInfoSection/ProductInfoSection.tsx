@@ -1,3 +1,4 @@
+import type { CardItemData, ProductDetail } from "@/types/DTO/productDTO";
 import {
   ImageWrapper,
   Img,
@@ -10,8 +11,8 @@ import {
 import { SectionDivider } from "@/pages/DetailPage/DetailPage.style";
 
 interface ProductInfoProps {
-  item: any;
-  detailInfo?: any;
+  item: CardItemData;
+  detailInfo?: ProductDetail;
 }
 
 const ProductInfo = ({ item }: ProductInfoProps) => {

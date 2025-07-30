@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import type { FormValues } from "@/pages/OrderPage/OrderPage";
 import { useProductSummary } from "@/hooks/useProductSummary";
+import type { ApiError } from "@/types/error";
 import {
   ProductInfoSection,
   SectionTitle,
@@ -29,7 +30,8 @@ const OrderSummarySection = ({ productId, isSubmitting = false }: Props) => {
   const product = data?.data;
 
   if (error) {
-    const status = (error as any)?.response?.status;
+    const apiError = error as ApiError;
+    const status = apiError?.response?.status;
 
     if (status && status >= 400 && status < 500) {
       toast.error("상품 정보를 불러올 수 없습니다. 다시 시도해주세요.");
