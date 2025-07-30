@@ -22,7 +22,6 @@ import {
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
-
   const navigate = useNavigate();
   const auth = useAuth();
 
@@ -32,7 +31,6 @@ const DetailPage = () => {
 
   const { data: item, isLoading, isError } = useGetProductInfo(productId);
   const { data: detailInfo } = useGetProductDetailInfo(productId);
-
   const {
     data: reviewData,
     isLoading: isReviewLoading,
