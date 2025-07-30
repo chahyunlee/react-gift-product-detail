@@ -32,6 +32,7 @@ const DetailPage = () => {
 
   const { data: item, isLoading, isError } = useGetProductInfo(productId);
   const { data: detailInfo } = useGetProductDetailInfo(productId);
+
   const {
     data: reviewData,
     isLoading: isReviewLoading,
