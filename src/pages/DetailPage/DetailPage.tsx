@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductInfo } from "@/hooks/useGetProductInfo";
 import { useGetProductDetailInfo } from "@/hooks/useGetProductDetailInfo";
+import { useGetProductReviewInfo } from "@/hooks/useGetProductReviewInfo";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import {
   Wrapper,
@@ -36,6 +37,11 @@ const DetailPage = () => {
 
   const { data: item, isLoading, isError } = useGetProductInfo(productId);
   const { data: detailInfo } = useGetProductDetailInfo(productId);
+  const {
+    data: reviewData,
+    isLoading: isReviewLoading,
+    isError: isReviewError,
+  } = useGetProductReviewInfo(productId);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !item) return <div>상품 정보를 불러오지 못했습니다.</div>;
@@ -59,7 +65,41 @@ const DetailPage = () => {
           />
         );
       case "review":
-        return "2";
+        if (isReviewLoading) return <div>리뷰 로딩 중...</div>;
+        if (isReviewError) return <div>리뷰를 불러오지 못했습니다.</div>;
+        if (!reviewData || reviewData.reviews.length === 0)
+          return <div>리뷰가 없습니다.</div>;
+
+        return (
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {reviewData.reviews.map((review, idx) => {
+              const isLast = idx === reviewData.reviews.length - 1;
+              return (
+                <li
+                  key={review.id}
+                  style={{
+                    padding: "12px",
+                    marginBottom: isLast ? "24px" : "8px", // 마지막만 24px 간격
+                  }}
+                >
+                  <strong
+                    style={{
+                      fontWeight: "bold",
+                      display: "block",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {review.authorName}
+                  </strong>
+                  <p style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                    {review.content}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
+        );
+
       case "info":
         return "3";
       default:
