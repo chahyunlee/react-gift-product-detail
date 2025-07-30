@@ -1,7 +1,8 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useProductInfo } from "@/hooks/useProductInfo";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
-import { cardData } from "@/mockdata/cardData";
 import {
   Wrapper,
   Container,
@@ -22,12 +23,19 @@ import {
 } from "@/pages/DetailPage/DetailPage.style";
 
 const DetailPage = () => {
-  const item = cardData[0];
+  const { id } = useParams<{ id: string }>();
+  const productId = Number(id);
+
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(11341);
   const [activeTab, setActiveTab] = useState<"description" | "review" | "info">(
     "description"
   );
+
+  const { data: item, isLoading, isError } = useProductInfo(productId);
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError || !item) return <div>상품 정보를 불러오지 못했습니다.</div>;
 
   const handleLikeToggle = () => {
     if (liked) {

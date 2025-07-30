@@ -45,3 +45,42 @@ export interface ProductSummaryRequest {
 export interface ProductSummaryResponse {
   data: ProductSummaryRequest;
 }
+
+export interface ProductDetail {
+  description: string;
+  announcement: AnnouncementItem[];
+}
+
+export interface AnnouncementItem {
+  name: string;
+  value: string;
+  displayOrder: number;
+}
+
+export interface ProductDetailResponse {
+  data: ProductDetail;
+}
+
+export interface ProductWishInfo {
+  wishCount: number;
+  isWished: boolean;
+}
+
+export interface ProductWishInfoResponse {
+  data: ProductWishInfo;
+}
+
+export interface ProductReview {
+  totalCount: number;
+  reviews: ProductReviewItem[];
+}
+
+export interface ProductReviewItem {
+  id: string;
+  authorName: string;
+  content: string;
+}
+
+export interface ProductReviewResponse {
+  data: ProductReview;
+}
