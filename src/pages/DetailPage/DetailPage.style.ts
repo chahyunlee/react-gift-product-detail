@@ -120,3 +120,17 @@ export const OrderButton = styled.button`
     background: ${({ theme }) => theme.colors.kakaoYellowHover};
   }
 `;
+
+export const HtmlContentWrapper = styled.div`
+  max-width: 100%;
+  overflow-x: hidden;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  p {
+    word-break: break-word;
+  }
+`;

@@ -1,7 +1,8 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useProductInfo } from "@/hooks/useProductInfo";
+import { useGetProductInfo } from "@/hooks/useGetProductInfo";
+import { useGetProductDetailInfo } from "@/hooks/useGetProductDetailInfo";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import {
   Wrapper,
@@ -20,6 +21,7 @@ import {
   LikeSection,
   OrderButton,
   BottomBar,
+  HtmlContentWrapper,
 } from "@/pages/DetailPage/DetailPage.style";
 
 const DetailPage = () => {
@@ -32,7 +34,8 @@ const DetailPage = () => {
     "description"
   );
 
-  const { data: item, isLoading, isError } = useProductInfo(productId);
+  const { data: item, isLoading, isError } = useGetProductInfo(productId);
+  const { data: detailInfo } = useGetProductDetailInfo(productId);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !item) return <div>상품 정보를 불러오지 못했습니다.</div>;
@@ -50,7 +53,11 @@ const DetailPage = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "description":
-        return "1";
+        return (
+          <HtmlContentWrapper
+            dangerouslySetInnerHTML={{ __html: detailInfo?.description ?? "" }}
+          />
+        );
       case "review":
         return "2";
       case "info":
