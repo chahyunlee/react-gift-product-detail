@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "format:check": "prettier --check 'src/**/*.{js,ts,jsx,tsx}'",
     "format:write": "prettier --write 'src/**/*.{js,ts,jsx,tsx}'",
-    "test": "vitest"
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
