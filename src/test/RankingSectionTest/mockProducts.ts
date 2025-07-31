@@ -129,7 +129,84 @@ export const mockProducts = [
       imageURL:
         "https://st.kakaocdn.net/product/gift/gift_brand/20240318104050_6ad6dbbadf2b4acd860e549d5c0fcc5e.png",
     },
-    targetType: "MALE",
-    rankType: "MANY_RECEIVE",
+    targetType: "ALL",
+    rankType: "MANY_WISH",
+  },
+
+  {
+    id: 11725708,
+    name: "마이넘버원 초코생크림 조각케이크+마이넘버원 고구마 조각케이크 +아이스 아메리카노 2잔",
+    price: {
+      basicPrice: 19600,
+      sellingPrice: 19600,
+      discountRate: 0,
+    },
+    imageURL:
+      "https://st.kakaocdn.net/product/gift/product/20250604103401_d7abb11954e64251b21748784f1ef850.jpg",
+    brandInfo: {
+      id: 2,
+      name: "파리바게뜨",
+      imageURL:
+        "https://st.kakaocdn.net/product/gift/gift_brand/20241127182106_b80d1ec588bd49d985f46db44b827aa2.jpg",
+    },
+    targetType: "ALL",
+    rankType: "MANY_WISH",
+  },
+  {
+    id: 11518444,
+    name: "위시캣 아이냥 케이크(픽업가능)",
+    price: {
+      basicPrice: 33000,
+      sellingPrice: 33000,
+      discountRate: 0,
+    },
+    imageURL:
+      "https://st.kakaocdn.net/product/gift/product/20250415150001_bac62e3d78c743b0bf728c6054d4612c.jpg",
+    brandInfo: {
+      id: 2,
+      name: "파리바게뜨",
+      imageURL:
+        "https://st.kakaocdn.net/product/gift/gift_brand/20241127182106_b80d1ec588bd49d985f46db44b827aa2.jpg",
+    },
+    targetType: "ALL",
+    rankType: "MANY_WISH",
+  },
+  {
+    id: 11527063,
+    name: "떠먹는 화이트 스초생",
+    price: {
+      basicPrice: 7200,
+      sellingPrice: 7200,
+      discountRate: 0,
+    },
+    imageURL:
+      "https://st.kakaocdn.net/product/gift/product/20250123142412_b3b0a3e8c2e74f928aa5e1531d7d5da4.jpg",
+    brandInfo: {
+      id: 33,
+      name: "투썸플레이스",
+      imageURL:
+        "https://st.kakaocdn.net/product/gift/gift_brand/20240318104050_6ad6dbbadf2b4acd860e549d5c0fcc5e.png",
+    },
+    targetType: "ALL",
+    rankType: "MANY_WISH",
+  },
+  {
+    id: 10795494,
+    name: "도너츠 6개입",
+    price: {
+      basicPrice: 11400,
+      sellingPrice: 11400,
+      discountRate: 0,
+    },
+    imageURL:
+      "https://st.kakaocdn.net/product/gift/product/20241014112403_bad0f28b6c814a16aad4bab2d3596fa7.jpg",
+    brandInfo: {
+      id: 7,
+      name: "던킨",
+      imageURL:
+        "https://st.kakaocdn.net/product/gift/gift_brand/20200331035637_912cd69641ea4723861dc213f6a0619f",
+    },
+    targetType: "ALL",
+    rankType: "MANY_WISH",
   },
 ];
