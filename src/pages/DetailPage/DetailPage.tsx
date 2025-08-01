@@ -25,7 +25,7 @@ const DetailPage = () => {
   const productId = Number(id);
   const navigate = useNavigate();
   const auth = useAuth();
-
+  
   const [activeTab, setActiveTab] = useState<ProductTab>(
     PRODUCT_TABS.DESCRIPTION
   );
